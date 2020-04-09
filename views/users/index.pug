@@ -1,0 +1,21 @@
+extends ../../layouts/default
+block content	
+	span.mr-3 Users
+	a.btn.btn-primary.mb-2(href="/users/create") New user
+	d-flex.align-item-center
+		form.ml-auto(action="/users/search", method="GET" class="d-flex", style="width: 50%")
+			input(type="text", name="q", class="form-control mr-3")
+			button(class="btn btn-success ml-2") search
+
+	table.table
+		tr
+			th Name
+			th Phone
+			th Actions
+
+		each user in users
+			tr
+				td= user.name 
+				td= user.phone
+				td 
+					a(href="/users/" + user.id) view
