@@ -7,13 +7,14 @@ var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true});
 
 var app = express();
-var port = 3000;
+var port = process.env.port || 3000;
 var bodyParser = require('body-parser');
 // routes
 var userRoutes = require('./routes/user.route');
 var authRoutes = require('./routes/auth.route');
 var productRoutes = require('./routes/product.route');
 var cartRoutes = require('./routes/cart.route');
+var apiProductRoutes = require('./api/routes/product.route');
 // controller
 var mainController = require('./controllers/main.controller');
 
@@ -33,10 +34,10 @@ app.use(express.static('public'))
 
 app.get('/', mainController.index);
 
+app.use('/api/products', apiProductRoutes)
 app.use('/users', authMiddleware.requireAuth, userRoutes)
 app.use('/auth', authRoutes)
 app.use('/products', productRoutes)
 app.use('/cart', cartRoutes)
-
 
 app.listen(port, () => console.log("Server is running at port " + port ))
