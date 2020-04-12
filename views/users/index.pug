@@ -1,6 +1,6 @@
 extends ../../layouts/default
 block content	
-	span.mr-3 Users
+	span.mr-3.font-weight-bold(style="font-size:25px") Users
 	a.btn.btn-primary.mb-2(href="/users/create") New user
 	d-flex.align-item-center
 		form.ml-auto(action="/users/search", method="GET" class="d-flex", style="width: 50%")
@@ -9,12 +9,15 @@ block content
 
 	table.table
 		tr
+			th Avatar
 			th Name
 			th Phone
 			th Actions
 
 		each user in users
 			tr
+				td
+					img(src='http://localhost:3000/' + user.avatar, width="35")
 				td= user.name 
 				td= user.phone
 				td 
